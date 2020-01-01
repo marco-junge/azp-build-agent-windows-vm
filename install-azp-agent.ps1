@@ -17,7 +17,7 @@ Param
   [string]$AgentInstallationPath = 'C:\Azure-Pipelines-Agent',
 
   [Parameter(Mandatory = $false)]
-  [string]$AgentWorkPath = 'C:\Azure-Pipelines-Agent\_work',
+  [string]$AgentWorkPath = "$AgentInstallationPath\_work",
 
   [Parameter(Mandatory = $false)]
   [int]$downloadMaxRetries = 5,
