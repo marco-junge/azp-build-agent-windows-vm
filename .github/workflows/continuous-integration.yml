@@ -13,5 +13,5 @@ jobs:
       run: bash sh-check.sh
       shell: bash
     - name: Terraform validate
-      run: bash tf-validate
+      run: bash tf-validate.sh
       shell: bash
