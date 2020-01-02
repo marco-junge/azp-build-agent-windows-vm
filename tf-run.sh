@@ -78,6 +78,7 @@ cleanup() {
   echo "Unset local functions..."
   unset terraform || :
 }
+
 trap cleanup EXIT
 
 # -----------------------------------------------------------------------
@@ -120,5 +121,3 @@ apply|destroy)
   terraform $tf_action "${terraform_options[@]}"
   ;;
 esac
-
-cleanup
