@@ -2,6 +2,10 @@ provider "azurerm" {
   version = "~>1.39"
 }
 
+locals {
+  script_parameters = "-AzpAccount ${var.azp_account} -PersonalAccessToken ${var.personal_access_token} -PoolName ${var.pool_name} %{if var.prepare_data_disk}-PrepareDataDisk %{else}-AgentInstallationPath \"${var.agent_installation_path}\" -AgentWorkPath \"${var.agent_work_path}\"%{endif} %{if var.pre_release}-PreRelease%{endif}"
+}
+
 resource "azurerm_virtual_machine_extension" "azp_agent_install_agent" {
   count               = length(var.virtual_machines)
   name                = "${element(var.virtual_machines, count.index)}-azp"
@@ -24,7 +28,7 @@ SETTINGS
 
   protected_settings = <<PROTECTED_SETTINGS
     {
-      "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File install-azp-agent.ps1 -AzpAccount ${var.azp_account} -PersonalAccessToken ${var.personal_access_token} -PoolName ${var.pool_name} -PrepareDataDisk ${var.prepare_data_disk} -AgentInstallationPath \"${var.agent_installation_path}\" -AgentWorkPath \"${var.agent_work_path}\" -PreRelease ${var.pre_release}"
+      "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File install-azp-agent.ps1 ${local.script_parameters}"
     }
 PROTECTED_SETTINGS
 }

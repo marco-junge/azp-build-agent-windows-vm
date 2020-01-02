@@ -20,7 +20,7 @@ Param
   [int]$downloadRetrySleepSeconds = 15,
 
   [Parameter(Mandatory = $false)]
-  [bool]$PrepareDataDisk = $false,
+  [switch]$PrepareDataDisk = $false,
 
   [Parameter(Mandatory = $false)]
   [string]$AgentInstallationPath = 'C:\Azure-Pipelines-Agent',
@@ -28,7 +28,7 @@ Param
   [Parameter(Mandatory = $false)]
   [string]$AgentWorkPath = "$AgentInstallationPath\_work",
 
-  [boolean]$PreRelease = $false
+  [switch]$PreRelease = $false
 )
 
 $currentLocation = Split-Path -parent $MyInvocation.MyCommand.Definition
