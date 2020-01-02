@@ -31,12 +31,12 @@ module "azp_virtual_machine" {
   delete_os_disk_on_termination    = var.vm_delete_os_disk_on_termination
   delete_data_disks_on_termination = var.vm_delete_data_disks_on_termination
   data_disk_size_gb                = var.vm_data_disk_size_gb
-  subnet_id                        = module.azp_network.subnet.id
+  subnet_id                        = module.azp_network.subnet_id
 }
 
 module "azp_agent_extension" {
   source                  = "../../modules/azp-agent-extension"
-  virtual_machine         = module.azp_virtual_machine.name
+  virtual_machines        = module.azp_virtual_machine.name
   resource_group          = module.azp_group.name
   location                = module.azp_group.location
   tags                    = module.azp_group.tags

@@ -1,6 +1,6 @@
-variable "virtual_machine" {
-  type        = string
-  description = "Virtual network name."
+variable "virtual_machines" {
+  type        = list(string)
+  description = "Virtual machine names."
 }
 
 variable "resource_group" {
@@ -38,13 +38,13 @@ variable "pool_name" {
 variable "agent_installation_path" {
   type        = string
   description = "Install path for agent on virtual machine."
-  default     = "C:\\Azure-Pipelines-Agent"
+  default     = "C:/Azure-Pipelines-Agent"
 }
 
 variable "agent_work_path" {
   type        = string
   description = "Working directory for agent builds on virtual machine."
-  default     = "C:\\Azure-Pipelines-Agent\\_work"
+  default     = "C:/Azure-Pipelines-Agent/_work"
 }
 
 variable "pre_release" {

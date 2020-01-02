@@ -52,7 +52,7 @@ variable "availability_set_name" {
 
 variable "vm_quantity" {
   description = "Quantity of virtual machines"
-  default     = 1
+  default     = 2
 }
 
 variable "vm_prefix" {
@@ -86,7 +86,7 @@ variable "vm_admin_password" {
 variable "vm_size" {
   type        = string
   description = "Virtual machine's SKU (e.g. Standard_DS1_v2)"
-  default     = "Standard_B2_ms"
+  default     = "Standard_B2ms"
 }
 
 variable "vm_delete_os_disk_on_termination" {
@@ -126,11 +126,11 @@ variable "azp_pool_name" {
 variable "azp_agent_installation_path" {
   type        = string
   description = "Install path for agent on virtual machine."
-  default     = "F:\\Azure-Pipelines-Agent"
+  default     = "F:/Azure-Pipelines-Agent"
 }
 
 variable "azp_agent_work_path" {
   type        = string
   description = "Working directory for agent builds on virtual machine."
-  default     = "F:\\Azure-Pipelines-Agent\\_work"
+  default     = "F:/Azure-Pipelines-Agent/_work"
 }
