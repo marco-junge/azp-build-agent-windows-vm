@@ -5,13 +5,12 @@ set -eo pipefail
 SCRIPT_DIR=${SCRIPT_DIR:="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"}
 TERRAFORM_IMAGE_VERSION=${TERRAFORM_IMAGE_VERSION:='0.12.18'}
 
-usage="Usage: $0 <validate|plan|apply|destroy> <module> <stage>"
+usage="Usage: $0 <plan|apply|destroy> <module>"
 
 tfvar_file="deploy.auto.tfvars"
 
 subcommand="$1"
 module="$2"
-stage="${3:-dev}"
 
 case $subcommand in
 plan)
@@ -72,13 +71,9 @@ setup() {
   export -f terraform
 }
 
-tfvar() {
-  echo "$1 = \"$2\"" >> "$tfvar_file"
-}
-
 cleanup() {
   echo "Cleanup..."
-  rm -f deploy.auto.tfvars || :
+  find . -type f -name "$tfvar_file" -exec rm -f \{\} + || :
   find . -type d -name .terraform -exec rm -rf \{\} + || :
   echo "Unset local functions..."
   unset terraform || :
@@ -90,7 +85,7 @@ trap cleanup EXIT
 # -----------------------------------------------------------------------
 
 environment=(
-  ARM_TENANT_ID ARM_SUBSCRIPTION_ID ARM_CLIENT_ID ARM_CLIENT_SECRET AZP_PAT_TOKEN
+  ARM_TENANT_ID ARM_SUBSCRIPTION_ID ARM_CLIENT_ID ARM_CLIENT_SECRET VM_ADMIN_PASSWORD AZP_ACCOUNT AZP_PERSONAL_ACCESS_TOKEN
 )
 
 checkenv "${environment[@]}"
@@ -102,25 +97,18 @@ setup
 
 rm -f "$tfvar_file"
 
-tfvar stage "$stage"
-# shellcheck disable=SC2154
-tfvar azp_pat_token "$AZP_PAT_TOKEN"
-tfvar azp_tags "$stage"
+echo "vm_admin_password         = \"$VM_ADMIN_PASSWORD\"" > "$tfvar_file"
+echo "azp_account               = \"$AZP_ACCOUNT\"" >> "$tfvar_file"
+echo "azp_personal_access_token = \"$AZP_PERSONAL_ACCESS_TOKEN\"" >> "$tfvar_file"
+
+declare -a terraform_var_options
+terraform_var_options+=("-var-file=$tfvar_file")
 
 # -----------------------------------------------------------------------
 # Run terraform
 # -----------------------------------------------------------------------
 
 terraform init "-lock=false" "$module"
-
-declare -a terraform_var_options
-if [ -r "$tfvar_file" ]; then
-  terraform_var_options+=("-var-file=$tfvar_file")
-fi
-
-if [ -f "$module/$stage.tfvars" ]; then
-  terraform_var_options+=("-var-file=$module/$stage.tfvars")
-fi
 
 case "$tf_action" in
 plan)

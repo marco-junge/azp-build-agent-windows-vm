@@ -27,9 +27,9 @@ variable "vnet_name" {
 }
 
 variable "vnet_address_space" {
-  type = list(string)
+  type        = list(string)
   description = "Address space for virtual network."
-  default = ["10.0.0.0/16"]
+  default     = ["10.0.0.0/16"]
 }
 
 variable "subnet_name" {
@@ -64,7 +64,7 @@ variable "vm_prefix" {
 variable "vm_storage_image_reference" {
   type        = map(string)
   description = "Specifies virtual machine image (standard or custom)."
-  default     = {
+  default = {
     publisher = "MicrosoftWindowsServer"
     offer     = "WindowsServer"
     sku       = "2019-Datacenter"
@@ -105,4 +105,32 @@ variable "vm_data_disk_size_gb" {
   type        = number
   description = "Data disk size in gigabytes. Default is 100 GB."
   default     = 100
+}
+
+variable "azp_account" {
+  type        = string
+  description = "Azure Pipelines account name (e.g. from http://dev.azure.com/<account name>)."
+}
+
+variable "azp_personal_access_token" {
+  type        = string
+  description = "Personal Access Token to join Azure Pipelines agent pool."
+}
+
+variable "azp_pool_name" {
+  type        = string
+  description = "Azure Pipelines agent pool name."
+  default     = "Default"
+}
+
+variable "azp_agent_installation_path" {
+  type        = string
+  description = "Install path for agent on virtual machine."
+  default     = "F:\\Azure-Pipelines-Agent"
+}
+
+variable "azp_agent_work_path" {
+  type        = string
+  description = "Working directory for agent builds on virtual machine."
+  default     = "F:\\Azure-Pipelines-Agent\\_work"
 }

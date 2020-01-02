@@ -3,12 +3,12 @@ provider "azurerm" {
 }
 
 resource "azurerm_virtual_machine_extension" "azp_agent_install_agent" {
-  name                = "${var.virtual_machine_name}-azp"
+  name                = "${var.virtual_machine}-azp"
   resource_group_name = var.resource_group
   location            = var.location
   tags                = var.tags
 
-  virtual_machine_name = var.virtual_machine_name
+  virtual_machine_name = var.virtual_machine
   publisher            = "Microsoft.Azure.Extensions"
   type                 = "CustomScript"
   type_handler_version = "2.0"
