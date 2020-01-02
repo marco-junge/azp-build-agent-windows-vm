@@ -24,7 +24,7 @@ SETTINGS
 
   protected_settings = <<PROTECTED_SETTINGS
     {
-      "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File install-azp-agent.ps1 -AzpAccount ${var.azp_account} -PersonalAccessToken ${var.personal_access_token} -PoolName ${var.pool_name} -AgentInstallationPath \"${var.agent_installation_path}\" -AgentWorkPath \"${var.agent_work_path}\" -PreRelease ${var.pre_release}"
+      "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File install-azp-agent.ps1 -AzpAccount ${var.azp_account} -PersonalAccessToken ${var.personal_access_token} -PoolName ${var.pool_name} -PrepareDataDisk ${var.prepare_data_disk} -AgentInstallationPath \"${var.agent_installation_path}\" -AgentWorkPath \"${var.agent_work_path}\" -PreRelease ${var.pre_release}"
     }
 PROTECTED_SETTINGS
 }

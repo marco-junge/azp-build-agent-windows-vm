@@ -123,14 +123,8 @@ variable "azp_pool_name" {
   default     = "Default"
 }
 
-variable "azp_agent_installation_path" {
-  type        = string
-  description = "Install path for agent on virtual machine."
-  default     = "F:/Azure-Pipelines-Agent"
-}
-
-variable "azp_agent_work_path" {
-  type        = string
-  description = "Working directory for agent builds on virtual machine."
-  default     = "F:/Azure-Pipelines-Agent/_work"
+variable "azp_prepare_data_disk" {
+  type        = bool
+  description = "Prepares and uses a new data disk for agent installation. Agent will be installed to drive 'P:'."
+  default     = true
 }

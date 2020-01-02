@@ -88,25 +88,3 @@ resource "azurerm_virtual_machine" "azp_agent_vm" {
     timezone                  = "W. Europe Standard Time"
   }
 }
-
-resource "azurerm_virtual_machine_extension" "azp_agent_vm_prepare_data_disk" {
-  count               = var.quantity
-  name                = "${format("${var.prefix}-%02d", count.index + 1)}-prepdisk"
-  resource_group_name = var.resource_group
-  location            = var.location
-  tags                = var.tags
-
-  virtual_machine_name = element(azurerm_virtual_machine.azp_agent_vm, count.index).name
-  publisher            = "Microsoft.Compute"
-  type                 = "CustomScriptExtension"
-  type_handler_version = "1.9"
-
-  settings = <<SETTINGS
-    {
-      "fileUris": [
-          "https://raw.githubusercontent.com/Azure-Samples/compute-automation-configurations/master/prepare_vm_disks.ps1"
-      ],
-      "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File prepare_vm_disks.ps1"
-    }
-SETTINGS
-}

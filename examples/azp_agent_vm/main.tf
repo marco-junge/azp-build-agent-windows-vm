@@ -35,14 +35,13 @@ module "azp_virtual_machine" {
 }
 
 module "azp_agent_extension" {
-  source                  = "../../modules/azp-agent-extension"
-  virtual_machines        = module.azp_virtual_machine.name
-  resource_group          = module.azp_group.name
-  location                = module.azp_group.location
-  tags                    = module.azp_group.tags
-  azp_account             = var.azp_account
-  personal_access_token   = var.azp_personal_access_token
-  pool_name               = var.azp_pool_name
-  agent_installation_path = var.azp_agent_installation_path
-  agent_work_path         = var.azp_agent_work_path
+  source                = "../../modules/azp-agent-extension"
+  virtual_machines      = module.azp_virtual_machine.name
+  resource_group        = module.azp_group.name
+  location              = module.azp_group.location
+  tags                  = module.azp_group.tags
+  azp_account           = var.azp_account
+  personal_access_token = var.azp_personal_access_token
+  pool_name             = var.azp_pool_name
+  prepare_data_disk     = var.azp_prepare_data_disk
 }

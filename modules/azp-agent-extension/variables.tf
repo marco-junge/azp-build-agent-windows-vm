@@ -35,6 +35,12 @@ variable "pool_name" {
   default     = "Default"
 }
 
+variable "prepare_data_disk" {
+  type        = bool
+  description = "Prepares and uses a data disk for agent installation. Agent will be installed to drive 'P:'."
+  default     = false
+}
+
 variable "agent_installation_path" {
   type        = string
   description = "Install path for agent on virtual machine."
