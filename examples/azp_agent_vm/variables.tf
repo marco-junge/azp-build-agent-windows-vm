@@ -67,7 +67,7 @@ variable "vm_storage_image_reference" {
   default = {
     publisher = "MicrosoftWindowsServer"
     offer     = "WindowsServer"
-    sku       = "2019-Datacenter"
+    sku       = "2019-Datacenter-with-Containers"
     version   = "latest"
   }
 }
