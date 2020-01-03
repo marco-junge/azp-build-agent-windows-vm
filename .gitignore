@@ -1,0 +1,25 @@
+# direnv
+.envrc*
+
+# azure
+**/.azure/*
+
+# certificates
+*.crt
+*.key
+*.pfx
+*.pem
+
+# local stuff
+*LOCAL*
+*local*
+*.DS_Store*
+
+# terraform
+backend.hcl
+*.terraform*
+*.plan*
+*.tfstate*
+*.output*
+*.auto.tfvars*
+**/*.log

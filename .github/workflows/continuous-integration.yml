@@ -1,0 +1,17 @@
+name: Continuous Integration
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Shell check
+      run: bash sh-check.sh
+      shell: bash
+    - name: Terraform validate
+      run: bash tf-validate.sh
+      shell: bash
