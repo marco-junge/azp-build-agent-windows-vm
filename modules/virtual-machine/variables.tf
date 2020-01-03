@@ -31,7 +31,7 @@ variable "prefix" {
 variable "storage_image_reference" {
   type        = map(string)
   description = "Specifies virtual machine image (standard or custom)."
-  default     = {
+  default = {
     id        = ""
     publisher = "MicrosoftWindowsServer"
     offer     = "WindowsServer"
@@ -80,6 +80,12 @@ variable "os_disk_storage_account_type" {
   type        = string
   description = "Virtual machine's os disk storage account type (default 'Standard_LRS')"
   default     = "Standard_LRS"
+}
+
+variable "timezone" {
+  type        = string
+  description = "Timezone for your virtual machine."
+  default     = "W. Europe Standard Time"
 }
 
 variable "subnet_id" {

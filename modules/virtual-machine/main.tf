@@ -85,6 +85,6 @@ resource "azurerm_virtual_machine" "azp_agent_vm" {
   os_profile_windows_config {
     provision_vm_agent        = true
     enable_automatic_upgrades = true
-    timezone                  = "W. Europe Standard Time"
+    timezone                  = var.timezone
   }
 }
