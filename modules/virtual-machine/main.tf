@@ -15,13 +15,13 @@ resource "azurerm_availability_set" "azp_availability_set" {
 
 resource "azurerm_network_interface" "azp_agent_vm_nic" {
   count               = var.quantity
-  name                = "${var.prefix}-${count.index}-nic"
+  name                = "${format("${var.prefix}-%02d", count.index + 1)}-nic"
   resource_group_name = var.resource_group
   location            = var.location
   tags                = var.tags
 
   ip_configuration {
-    name                          = "${var.prefix}-${count.index}-ipconfig"
+    name                          = "${format("${var.prefix}-%02d", count.index + 1)}-ipconfig"
     subnet_id                     = var.subnet_id
     private_ip_address_allocation = "Dynamic"
   }
@@ -29,7 +29,7 @@ resource "azurerm_network_interface" "azp_agent_vm_nic" {
 
 resource "azurerm_managed_disk" "azp_agent_vm_disk" {
   count               = var.quantity
-  name                = "${var.prefix}-${count.index}-data"
+  name                = "${format("${var.prefix}-%02d", count.index + 1)}-data"
   resource_group_name = var.resource_group
   location            = var.location
   tags                = var.tags
@@ -62,7 +62,7 @@ resource "azurerm_virtual_machine" "azp_agent_vm" {
   }
 
   storage_os_disk {
-    name              = "${var.prefix}-${count.index}-os"
+    name              = "${format("${var.prefix}-%02d", count.index + 1)}-os"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = var.os_disk_storage_account_type
